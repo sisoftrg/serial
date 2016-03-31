@@ -107,7 +107,7 @@ func listPorts() ([]string, error) {
 func isALegacyPlaceholder(portName string) bool {
 	const legacyComPortPrefix = "ttyS"
 	if strings.HasPrefix(portName, legacyComPortPrefix) {
-		port, err := openPort(devFolder+"/"+portName, 9600, 100)
+		port, err := openPort(devFolder+"/"+portName, 9600, DefaultSize, ParityNone, Stop1, 100)
 		if err != nil {
 			return true
 		} else {
