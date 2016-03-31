@@ -13,7 +13,6 @@ const (
 	devFolder = "/dev"
 )
 
-
 // Converts the timeout values for Linux / POSIX systems
 // Moved to this new source module from serial.go
 func posixTimeoutValues(readTimeout time.Duration) (vmin uint8, vtime uint8) {
@@ -97,7 +96,7 @@ func listPorts() ([]string, error) {
 		}
 
 		// Save serial port in the resulting list
-		ports = append(ports, devFolder + "/" + f.Name())
+		ports = append(ports, devFolder+"/"+f.Name())
 	}
 
 	return ports, nil
@@ -105,15 +104,15 @@ func listPorts() ([]string, error) {
 
 // Checks whether port entry is just a placeholder -- e.g. reserved for a legacy ISA COM
 // port that doesn't exist
-func isALegacyPlaceholder(portName string) (bool){
+func isALegacyPlaceholder(portName string) bool {
 	const legacyComPortPrefix = "ttyS"
 	if strings.HasPrefix(portName, legacyComPortPrefix) {
-		port, err := openPort(devFolder + "/" + portName, 9600, 100)
+		port, err := openPort(devFolder+"/"+portName, 9600, 100)
 		if err != nil {
-			return true;
+			return true
 		} else {
 			port.Close()
 		}
 	}
-	return false;
+	return false
 }
