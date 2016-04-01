@@ -250,7 +250,7 @@ func init() {
 }
 
 func clearCommError(h syscall.Handle) error {
-	return processSyscall(nClearCommError, 1, uintptr(h), 0, 0)
+	return processSyscall(nClearCommError, 3, uintptr(h), 0, 0)
 }
 
 func getProcAddr(lib syscall.Handle, name string) uintptr {
