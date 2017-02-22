@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -198,12 +197,7 @@ func listPorts() ([]string, error) {
 		if regEnumValue(h, uint32(i), &name[0], &nameSize, nil, nil, &data[0], &dataSize) != nil {
 			return nil, errors.New("Error enumerating ports")
 		}
-		nm := syscall.UTF16ToString(name[:nameSize])
-		if strings.Contains(nm, "QCUSB_COM") {
-			list[i] = nm
-		} else {
-			list[i] = syscall.UTF16ToString(data[:dataSize])
-		}
+		list[i] = syscall.UTF16ToString(data[:])
 	}
 	return list, nil
 }
